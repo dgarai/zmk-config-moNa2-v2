@@ -37,12 +37,12 @@ layers:
   - {t: ESC, h: LEFT SHIFT}
   - LEFT ALT
   - LEFT COMMAND
-  - ARROW
+  - {t: '&to_layer_0 BACKSPACE', h: ARROW}
   - {t: LANGUAGE 2, h: KIGOU}
   - SPACE
   - ENTER
   - {t: LANGUAGE 1, h: LEFT CONTROL}
-  - {t: DELETE, h: RIGHT SHIFT}
+  - {t: DELETE, h: SCROLL}
   ARROW:
   - ESCAPE
   - PAGE DOWN
