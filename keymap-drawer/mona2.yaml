@@ -66,9 +66,9 @@ layers:
   - KP 6
   - KP MINUS
   - {t: ▽, type: trans}
-  - Sft+Gui+KP 3
-  - Sft+Gui+KP 4
-  - Sft+Gui+KP 5
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - Ctl+K
   - {t: ▽, type: trans}
