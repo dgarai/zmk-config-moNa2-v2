@@ -21,7 +21,7 @@ layers:
   - J
   - K
   - L
-  - {t: '-', h: DESK}
+  - {t: '-', h: GEST}
   - {t: Z, h: LEFT SHIFT}
   - X
   - C
@@ -39,7 +39,7 @@ layers:
   - LEFT COMMAND
   - {t: '&to_layer_0 BACKSPACE', h: ARROW}
   - {t: LANGUAGE 2, h: KIGOU}
-  - {t: SPACE, h: DESK}
+  - {t: SPACE, h: GEST}
   - ENTER
   - {t: LANGUAGE 1, h: LEFT CONTROL}
   - {t: DELETE, h: SCROLL}
@@ -344,7 +344,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - F12
-  DESK:
+  GEST:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
