@@ -228,7 +228,7 @@
             display-name = "FUNC";
         };
 
-        DESKTOP {
+        GESTURE {
             bindings = <
 &trans  &trans  &trans  &trans  &trans                       &trans  &kp LG(LEFT_BRACKET)  &kp LC(UP)    &kp LG(RIGHT_BRACKET)  &trans
 &trans  &trans  &trans  &trans  &trans            &kp LG(W)  &trans  &kp LC(LEFT)          &kp LC(DOWN)  &kp LC(RIGHT)          &trans
@@ -236,7 +236,7 @@
 &trans  &trans  &trans  &trans  &trans  &trans    &trans     &trans                                                             &trans
             >;
 
-            display-name = "DESK";
+            display-name = "GEST";
         };
     };
 };
