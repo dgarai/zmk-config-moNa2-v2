@@ -39,7 +39,7 @@ layers:
   - LEFT COMMAND
   - {t: '&to_layer_0 BACKSPACE', h: ARROW}
   - {t: LANGUAGE 2, h: KIGOU}
-  - SPACE
+  - {t: SPACE, h: DESK}
   - ENTER
   - {t: LANGUAGE 1, h: LEFT CONTROL}
   - {t: DELETE, h: SCROLL}
@@ -344,6 +344,49 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - F12
+  DESK:
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - Gui+W
+  - Gui+[
+  - Ctl+UP
+  - Gui+]
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - Ctl+LEFT
+  - Ctl+DOWN
+  - Ctl+RIGHT
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
 combos:
 - p: [17, 19]
   k: '&mkp MB3'
