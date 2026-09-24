@@ -142,7 +142,7 @@
 &lt 3 Q             &kp W         &kp E             &kp R  &kp T                                           &kp Y                        &kp U  &lt 5 I    &kp O       &kp P
 &kp A               &kp S         &kp D             &kp F  &kp G                            &kp BACKSPACE  &kp H                        &kp J  &kp K      &kp L       &kp MINUS
 &mt LEFT_SHIFT Z    &kp X         &kp C             &kp V  &kp B             &kp TAB        &kp DELETE     &kp N                        &kp M  &kp COMMA  &kp PERIOD  &kp SLASH
-&mt LEFT_SHIFT ESC  &kp LEFT_ALT  &kp LEFT_COMMAND  &lt_to_layer_0 1 BACKSPACE  &lt 2 LANGUAGE_2  &kp SPACE      &kp ENTER      &mt LEFT_CONTROL LANGUAGE_1                                &lt 5 DELETE
+&mt LEFT_SHIFT ESC  &kp LEFT_ALT  &kp LEFT_COMMAND  &lt_to_layer_0 1 BACKSPACE  &lt 2 LANGUAGE_2  &ltq 8 SPACE      &kp ENTER      &mt LEFT_CONTROL LANGUAGE_1                                &lt 5 DELETE
             >;
 
             sensor-bindings = <&encoder_scroll>;   // マウスホイール上下スクロール
@@ -227,5 +227,17 @@
 
             display-name = "FUNC";
         };
+
+        DESKTOP {
+            bindings = 
+&trans  &trans  &trans  &trans  &trans                                        &kp LG(W)             &kp LG(LEFT_BRACKET)  &kp LC(UP)    &kp LG(RIGHT_BRACKET)  &trans
+&trans  &trans  &trans  &trans  &trans                        &trans          &trans                &kp LC(LEFT)          &kp LC(DOWN)  &kp LC(RIGHT)          &trans
+&trans  &trans  &trans  &trans  &trans  &trans                &trans          &trans                &trans                &trans        &trans                 &trans
+&trans  &trans  &trans  &trans  &trans  &trans                &trans          &trans                                                                            &trans
+            >;
+
+            display-name = "DESK";
+        };
+
     };
 };
