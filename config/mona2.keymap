@@ -44,7 +44,7 @@
             bindings = <&mkp MB3>;
             key-positions = <17 19>;
             timeout-ms = <80>;              // 50→80。同時押しをゆるく
-            require-prior-idle-ms = <125>;  // 打鍵中は発火させない
+            require-prior-idle-ms = <50>;   // 125→50。取りこぼしで j/k が漏れるため緩める
         };
 
         // roBa: <18 19> → moNa2: <17 18>（J + K）
@@ -53,7 +53,7 @@
             bindings = <&mkp MB1>;
             key-positions = <17 18>;
             timeout-ms = <80>;              // 50→80。同時押しをゆるく
-            require-prior-idle-ms = <125>;  // 打鍵中は発火させない
+            require-prior-idle-ms = <50>;   // 125→50。取りこぼしで j/k が漏れるため緩める
         };
 
         // roBa: <19 20> → moNa2: <18 19>（K + L）
@@ -62,7 +62,7 @@
             bindings = <&mkp MB2>;
             key-positions = <18 19>;
             timeout-ms = <80>;              // 50→80。同時押しをゆるく
-            require-prior-idle-ms = <125>;  // 打鍵中は発火させない
+            require-prior-idle-ms = <50>;   // 125→50。取りこぼしで k/l が漏れるため緩める
         };
 
         // roBa: <0 1> → moNa2: <0 1>（Q + W）位置変化なし
@@ -141,8 +141,8 @@
             bindings = <
 &lt 3 Q             &kp W         &kp E             &kp R                       &kp T                                            &kp Y                        &kp U  &lt 5 I    &kp O       &kp P
 &kp A               &kp S         &kp D             &kp F                       &kp G                             &kp BACKSPACE  &kp H                        &kp J  &kp K      &kp L       &lt 8 MINUS
-&mt LEFT_SHIFT Z    &kp X         &kp C             &kp V                       &kp B             &kp TAB         &kp DELETE     &kp N                        &kp M  &kp COMMA  &kp PERIOD  &kp SLASH
-&mt LEFT_SHIFT ESC  &kp LEFT_ALT  &kp LEFT_COMMAND  &lt_to_layer_0 1 BACKSPACE  &lt 2 LANGUAGE_2  &ltq 8 SPACE    &kp ENTER      &mt LEFT_CONTROL LANGUAGE_1                                &lt 5 DELETE
+&mt LEFT_SHIFT Z    &kp X         &kp C             &kp V                       &kp B             &lt 8 TAB       &kp DELETE     &kp N                        &kp M  &kp COMMA  &kp PERIOD  &kp SLASH
+&mt LEFT_SHIFT ESC  &kp LEFT_ALT  &kp LEFT_COMMAND  &lt_to_layer_0 1 BACKSPACE  &lt 2 LANGUAGE_2  &kp SPACE       &kp ENTER      &mt LEFT_CONTROL LANGUAGE_1                                &lt 5 DELETE
             >;
 
             sensor-bindings = <&encoder_scroll>;   // マウスホイール上下スクロール
