@@ -42,7 +42,7 @@ layers:
   - SPACE
   - ENTER
   - {t: LANGUAGE 1, h: LEFT CONTROL}
-  - {t: DELETE, h: SCROLL}
+  - {t: BACKSPACE, h: RIGHT SHIFT}
   ARROW:
   - ESCAPE
   - PAGE DOWN
@@ -350,7 +350,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - {t: ▽, type: trans}
+  - Gui+W
   - Gui+[
   - Ctl+UP
   - Gui+]
@@ -360,7 +360,7 @@ layers:
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
-  - Gui+W
+  - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - Ctl+LEFT
   - Ctl+DOWN
