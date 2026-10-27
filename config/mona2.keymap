@@ -139,10 +139,10 @@
 
         default_layer {
             bindings = <
-&lt 3 Q             &kp W         &kp E             &kp R                       &kp T                                         &kp Y                        &kp U  &lt 5 I    &kp O       &kp P
-&kp A               &kp S         &kp D             &kp F                       &kp G                          &kp BACKSPACE  &kp H                        &kp J  &kp K      &kp L       &lt 8 MINUS
-&mt LEFT_SHIFT Z    &kp X         &kp C             &kp V                       &kp B             &lt 8 TAB    &kp DELETE     &kp N                        &kp M  &kp COMMA  &kp PERIOD  &kp SLASH
-&mt LEFT_SHIFT ESC  &kp LEFT_ALT  &kp LEFT_COMMAND  &lt_to_layer_0 1 BACKSPACE  &lt 2 LANGUAGE_2  &kp SPACE    &kp ENTER      &mt LEFT_CONTROL LANGUAGE_1                                &mt RIGHT_SHIFT BACKSPACE
+&lt 3 Q             &kp W         &kp E             &kp R             &kp T                                         &kp Y                        &lt 5 U  &lt 5 I    &lt 5 O     &kp P
+&kp A               &kp S         &kp D             &kp F             &kp G                          &kp BACKSPACE  &kp H                        &kp J    &kp K      &kp L       &lt 8 MINUS
+&mt LEFT_SHIFT Z    &kp X         &kp C             &kp V             &kp B             &lt 8 TAB    &kp DELETE     &kp N                        &kp M    &kp COMMA  &kp PERIOD  &kp SLASH
+&mt LEFT_SHIFT ESC  &kp LEFT_ALT  &kp LEFT_COMMAND  &lt 1 LANGUAGE_2  &lt 2 LANGUAGE_2  &kp SPACE    &kp ENTER      &mt LEFT_CONTROL LANGUAGE_1                                  &mt RIGHT_SHIFT BACKSPACE
             >;
 
             sensor-bindings = <&encoder_scroll>;   // マウスホイール上下スクロール
