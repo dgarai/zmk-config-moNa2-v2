@@ -1,0 +1,86 @@
+name: Sync keymap to other boards
+
+# config/mona2.keymap が変わったら、他の 2 台のリポジトリへキーマップを配る。
+# keymap-editor の SAVE もここで言う push に含まれる。
+# 止め方・元に戻し方は KEYMAP-SYNC.md を参照。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "config/mona2.keymap"
+      - "tools/sync-keymap.py"
+      - ".github/workflows/sync-keymap.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-keymap
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: paw3222
+            repo: dgarai/zmk-for-moNa2-paw3222
+            variant: paw3222
+            target: config/mona2.keymap
+            secret: DEPLOY_KEY_PAW3222
+          - name: roBa
+            repo: dgarai/zmk-config-roBa
+            variant: roBa
+            target: config/roBa.keymap
+            secret: DEPLOY_KEY_ROBA
+
+    name: ${{ matrix.name }}
+    steps:
+      - name: マスターを取得
+        uses: actions/checkout@v4
+        with:
+          path: master
+
+      - name: デプロイキーを用意
+        env:
+          DEPLOY_KEY: ${{ secrets[matrix.secret] }}
+        run: |
+          if [ -z "$DEPLOY_KEY" ]; then
+            echo "::error::Secret ${{ matrix.secret }} が未設定です。KEYMAP-SYNC.md の手順で登録してください。"
+            exit 1
+          fi
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_KEY" > ~/.ssh/sync_key
+          chmod 600 ~/.ssh/sync_key
+          ssh-keyscan -t rsa,ecdsa,ed25519 github.com >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: 同期先を取得
+        env:
+          GIT_SSH_COMMAND: ssh -i ~/.ssh/sync_key -o IdentitiesOnly=yes
+        run: git clone --depth 1 "git@github.com:${{ matrix.repo }}.git" target
+
+      - name: キーマップを変換
+        run: |
+          python3 master/tools/sync-keymap.py \
+            --master master/config/mona2.keymap \
+            --variant "${{ matrix.variant }}" \
+            --out "target/${{ matrix.target }}"
+
+      - name: コミットして push
+        working-directory: target
+        env:
+          GIT_SSH_COMMAND: ssh -i ~/.ssh/sync_key -o IdentitiesOnly=yes
+        run: |
+          if git diff --quiet; then
+            echo "差分なし。何もしません。"
+            exit 0
+          fi
+          git config user.name "keymap-sync"
+          git config user.email "keymap-sync@users.noreply.github.com"
+          git add "${{ matrix.target }}"
+          git commit -m "Sync keymap from moNa2-v2 (${GITHUB_SHA})"
+          git push origin HEAD:main
