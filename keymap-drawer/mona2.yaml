@@ -37,7 +37,7 @@ layers:
   - {t: ESC, h: LEFT SHIFT}
   - LEFT ALT
   - LEFT COMMAND
-  - {t: LANGUAGE 2, h: ARROW}
+  - {t: BACKSPACE, h: ARROW}
   - {t: LANGUAGE 2, h: KIGOU}
   - SPACE
   - ENTER
