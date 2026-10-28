@@ -77,7 +77,8 @@
             <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   //スクロールのX軸反転
             //<&zip_scroll_scaler 1 5>;                           //スクロール量を1/4倍
             //<&zip_scroll_scaler 1 24>;                         //roBa相当（約1.0mm/クリック）
-            <&zip_scroll_scaler 1 48>;                          //約2.0mm/クリック（24から変更。数値を上げるほど緩くなる）
+            //<&zip_scroll_scaler 1 48>;                         //約2.0mm/クリック（緩すぎた）
+            <&zip_scroll_scaler 1 36>;                          //約1.5mm/クリック（数値を上げるほど緩くなる）
     };
 
 };
