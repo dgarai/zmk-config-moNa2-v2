@@ -45,9 +45,9 @@ layers:
   - {t: BACKSPACE, h: RIGHT SHIFT}
   ARROW:
   - ESCAPE
-  - PAGE DOWN
-  - UP ARROW
   - PAGE UP
+  - UP ARROW
+  - PAGE DOWN
   - TAB
   - {t: ▽, type: trans}
   - KP 7
