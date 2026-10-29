@@ -1,5 +1,6 @@
 #include "mona2.dtsi"
 #include <input/processors.dtsi>
+#include <scroll-snap.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 
@@ -75,10 +76,19 @@
             <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       //X軸反転
             <&zip_xy_to_scroll_mapper>,                         //スクロールモードに変更
             <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   //スクロールのX軸反転
+            <&zip_scroll_snap>,                                 //縦横スナップ（スケーラーより前に置く）
             //<&zip_scroll_scaler 1 5>;                           //スクロール量を1/4倍
             //<&zip_scroll_scaler 1 24>;                         //roBa相当（約1.0mm/クリック）
             //<&zip_scroll_scaler 1 48>;                         //約2.0mm/クリック（緩すぎた）
             <&zip_scroll_scaler 1 36>;                          //約1.5mm/クリック（数値を上げるほど緩くなる）
     };
 
+};
+
+
+// スクロールスナップ判定（縦優先）
+// 水平から約18°以内（|y/x| < 1/3）のときだけ横スクロール、それ以外は縦スクロール
+&zip_scroll_snap {
+    x-threshold = <1 3>;
+    y-threshold = <1 3>;
 };
