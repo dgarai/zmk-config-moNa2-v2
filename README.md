@@ -15,7 +15,20 @@
 
 仕組み・セットアップ・元に戻す手順は [KEYMAP-SYNC.md](KEYMAP-SYNC.md) を参照。
 
+## DYA Studio（レベル2）
+
+[DYA Studio](https://studio.dya.cormoran.works) で、ブラウザからキーマップ・マクロ・コンボ・トラックボール・BLE 接続などを変更できる。
+
+- ZMK 本体は Custom Studio Protocol 対応の [cormoran/zmk `main+dya`](https://github.com/cormoran/zmk/tree/main+dya)（Zephyr 4.1）。実験的な fork なので、壊れたら `main` の旧構成に戻す
+- 右手側を USB でつなぎ、Chrome / Edge で開いて「USB」を選ぶ（Bluetooth 接続も可）
+- トラックボールの感度・スクロール量・スナップ・オートマウスは Trackball タブで変更できる。初期値は旧構成と同じ向き・量に合わせてある（`boards/shields/mona2/mona2_r.overlay`）
+- Studio で変えた内容はキーボード本体に保存され、このリポジトリの `config/mona2.keymap` には戻らない。恒久的に残したい変更は keymap にも反映する
+- 旧構成から書き換えた直後は、左右とも `settings_reset` を書き込んでから新しいファームを書き込む
+
 # COROPITを使用するへ
+
+> 注: 下記は旧ドライバ（badjeff 版 `pixart,pmw3610`）時代の手順。DYA Studio 対応後は `invert-x` / `invert-y` の代わりに
+> `config/mona2_r.conf` の `CONFIG_PMW3610_INVERT_X` / `CONFIG_PMW3610_INVERT_Y` で指定する（DYA Studio の Trackball タブからも変更可）。
 
 COROPITを使用する方は以下のようにコードを編集してください。
 

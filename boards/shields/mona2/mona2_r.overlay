@@ -1,6 +1,7 @@
 #include "mona2.dtsi"
 #include <input/processors.dtsi>
-#include <scroll-snap.dtsi>
+#include <input/processors/runtime-input-processor.dtsi>
+#include <dt-bindings/zmk/runtime_input_processor.h>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 
@@ -49,14 +50,12 @@
 
     trackball_central: trackball_central@0 {
         status = "okay";
-        compatible = "pixart,pmw3610";  //トラボセンサ用のドライバとバインド
+        compatible = "cormoran,pmw3610";  //DYA Studio 対応の PMW3610 ドライバ（badjeff 版から置き換え）
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; //P0.02を指定(MOTION)
         cpi = <600>;
-        //swap-xy;
-        invert-x; //COROPIT版ではコメントアウトを外す
-        invert-y; //COROPIT版ではコメントアウトを外す
+        // 軸の反転は mona2_r.conf の CONFIG_PMW3610_INVERT_X で指定する（DYA Studio からも変更可）
         evt-type = <INPUT_EV_REL>;
         x-input-code = <INPUT_REL_X>;
         y-input-code = <INPUT_REL_Y>;
@@ -65,30 +64,46 @@
 
 
 // Overrides for the input listener node
+//
+// 旧構成（badjeff ドライバ + 標準 input processor + kot149 scroll-snap）と同じ向き・量になるよう
+// DYA Studio から変更できる runtime input processor に置き換えた。
+//   ドライバ出力 = (-x, +y)  ← CONFIG_PMW3610_INVERT_X=y
+//   マウス      = そのまま、動かすと MOUSE レイヤー(4)へ自動切り替え
+//   スクロール  = SCROLL レイヤー(5)のときだけ。X→横 / Y→縦、縦は反転、1/36 倍、縦方向にスナップ
+// scroll を先に置くことで、SCROLL レイヤー中は mouse 側（オートマウス）を通らない。
 &trackball_central_listener {
     status = "okay";
     device = <&trackball_central>;
-
-    scroller {
-        layers = <5>;   // レイヤー5 = SCROLL
-        input-processors = 
-            // <&zip_xy_transform INPUT_TRANSFORM_XY_SWAP>,        //X軸とY軸の入れ替え
-            <&zip_xy_transform INPUT_TRANSFORM_X_INVERT>,       //X軸反転
-            <&zip_xy_to_scroll_mapper>,                         //スクロールモードに変更
-            <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>,   //スクロールのX軸反転
-            <&zip_scroll_snap>,                                 //縦横スナップ（スケーラーより前に置く）
-            //<&zip_scroll_scaler 1 5>;                           //スクロール量を1/4倍
-            //<&zip_scroll_scaler 1 24>;                         //roBa相当（約1.0mm/クリック）
-            //<&zip_scroll_scaler 1 48>;                         //約2.0mm/クリック（緩すぎた）
-            <&zip_scroll_scaler 1 36>;                          //約1.5mm/クリック（数値を上げるほど緩くなる）
-    };
-
+    input-processors = <&scroll_runtime_input_processor &mouse_runtime_input_processor>;
 };
 
+&mouse_runtime_input_processor {
+    temp-layer-enabled;
+    temp-layer = <4>;                           // 4 = MOUSE（オートマウスレイヤー）
+    temp-layer-deactivation-delay-ms = <500>;   // 旧 zip_temp_layer 4 500 と同じ
+};
 
-// スクロールスナップ判定（縦優先）
-// 水平から約18°以内（|y/x| < 1/3）のときだけ横スクロール、それ以外は縦スクロール
-&zip_scroll_snap {
-    x-threshold = <1 3>;
-    y-threshold = <1 3>;
+&scroll_runtime_input_processor {
+    x-codes = <INPUT_REL_X>;
+    y-codes = <INPUT_REL_Y>;
+    xy-to-scroll-enabled;
+    y-invert;
+    active-layers = <(1 << 5)>;                 // 5 = SCROLL
+    scale-multiplier = <1>;
+    scale-divisor = <36>;                       // 約1.5mm/クリック（旧 zip_scroll_scaler 1 36）
+    axis-snap-mode = <AXIS_SNAP_MODE_Y>;        // 縦優先（旧 zip_scroll_snap の代わり）
+    axis-snap-threshold = <600>;
+};
+
+/ {
+    // DYA Studio のキーマップ表示にトラックボールを描く（表示専用）
+    trackball_layout: trackball_layout {
+        compatible = "cormoran,physical-layout-trackball";
+        display-name = "Trackball";
+        size = <180>;
+        x = <960>;
+        y = <300>;
+        linked-device-identifiers = "mouse", "scroll";
+        linked-subsystems = "cormoran_rip", "cormoran_rip";
+    };
 };

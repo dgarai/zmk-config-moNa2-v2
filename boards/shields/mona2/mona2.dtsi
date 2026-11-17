@@ -86,12 +86,10 @@
     };
 
     //right hand trackball
+    // input-processors は mona2_r.overlay で設定する（DYA Studio から変更できる runtime processor）
     trackball_central_listener: trackball_central_listener {
         compatible = "zmk,input-listener";
         status = "disabled";
-        input-processors =
-            <&zip_xy_transform INPUT_TRANSFORM_Y_INVERT>,   //Y軸反転
-            <&zip_temp_layer 4 500>;                        //オートマウスレイヤー（4 = MOUSE）
     };
 
     left_encoder: encoder_left {
@@ -112,4 +110,10 @@
         triggers-per-rotation = <10>;
     };
 
+};
+
+// NFC ピン（P0.09 / P0.10）を GPIO として使う。
+// Zephyr 4.x では Kconfig の NFCT_PINS_AS_GPIOS が廃止され、devicetree で指定する。
+&uicr {
+    nfct-pins-as-gpios;
 };

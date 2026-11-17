@@ -1,38 +1,79 @@
 manifest:
+  # DYA Studio レベル2 対応（2026-11-17）
+  # ZMK 本体を Custom Studio Protocol 対応の cormoran fork に差し替え、
+  # DYA Studio 用モジュールを追加している。
+  # 参考: https://github.com/cormoran/zmk-config-dya-studio-sample
+  #       https://github.com/cormoran/zmk-keyboard-dya2/blob/main/config/west-dependency.yml
+  defaults:
+    remote: cormoran
+    revision: main
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: sayu-hub
-      url-base: https://github.com/sayu-hub
-    - name: badjeff    # <-- PMW3610
-      url-base: https://github.com/badjeff
-    # - name: sekigon-gonnoc  # <-- PAW3222
-    #   url-base: https://github.com/sekigon-gonnoc
+    - name: cormoran
+      url-base: https://github.com/cormoran
     - name: caksoylar  # <-- RGB LED
       url-base: https://github.com/caksoylar
-    - name: zettaface  # <-- Input Processor Keybind
-      url-base: https://github.com/zettaface
-    - name: kot149     # <-- Scroll Snap
-      url-base: https://github.com/kot149
   projects:
+    # --- ZMK 本体（cormoran fork）と Zephyr ---------------------------------
     - name: zmk
-      remote: zmkfirmware
-      revision: v0.3-branch
-      import: app/west.yml
-    - name: zmk-pmw3610-driver
-      remote: badjeff
-      revision: zmk-0.3
-    # - name: zmk-driver-paw3222
-    #   remote: sekigon-gonnoc
-    #   revision: main
+      revision: main+dya
+      import:
+        file: app/west.yml
+    - name: zephyr
+      revision: v4.1.0+zmk-fixes+nrf-half-duplex-uart
+      clone-depth: 1
+      import:
+        name-blocklist:
+          - ci-tools
+          - hal_altera
+          - hal_cypress
+          - hal_infineon
+          - hal_microchip
+          - hal_nxp
+          - hal_openisa
+          - hal_xtensa
+          - hal_st
+          - hal_ti
+          - loramac-node
+          - mcuboot
+          - mcumgr
+          - net-tools
+          - openthread
+          - edtt
+          - trusted-firmware-m
+
+    # --- コア -------------------------------------------------------------
+    - name: zmk-feature-custom-settings
+    - name: zmk-feature-fast-keymap
+
+    # --- Keymap / Macro / Combo タブ ---------------------------------------
+    - name: zmk-feature-runtime-macro
+    - name: zmk-feature-runtime-combo
+    - name: zmk-feature-input-stream
+    - name: zmk-feature-module-physical-layout
+
+    # --- Trackball タブ（PMW3610 ドライバは badjeff 版から置き換え）---------
+    - name: zmk-driver-pmw3610-with-custom-studio-rpc
+    - name: zmk-module-runtime-input-processor
+
+    # --- Connection タブ ---------------------------------------------------
+    - name: zmk-module-ble-management
+    - name: zmk-feature-default-layer
+      revision: codex/custom-rpc-rewrite
+    - name: zmk-feature-os-detection
+
+    # --- Settings タブ -----------------------------------------------------
+    - name: zmk-module-settings-rpc
+
+    # --- Troubleshooting タブ ----------------------------------------------
+    - name: zmk-feature-device-info
+    - name: zmk-feature-watchdog
+    - name: zmk-feature-kscan-diagnostics
+
+    # --- その他 -------------------------------------------------------------
     - name: zmk-rgbled-widget
       remote: caksoylar
-      revision: v0.3-branch
-    - name: zmk-input-processor-keybind
-      remote: zettaface
       revision: main
-    - name: zmk-scroll-snap
-      remote: kot149
-      revision: v1
   self:
     path: config
