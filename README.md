@@ -21,6 +21,9 @@
 
 - ZMK 本体は Custom Studio Protocol 対応の [cormoran/zmk `main+dya`](https://github.com/cormoran/zmk/tree/main+dya)（Zephyr 4.1）。実験的な fork なので、壊れたら `main` の旧構成に戻す
 - 右手側を USB でつなぎ、Chrome / Edge で開いて「USB」を選ぶ（Bluetooth 接続も可）
+- 接続前に Studio Unlock キーを押す（USB / Bluetooth とも）。切断時と 10 分無操作で自動ロックされる
+  - Unlock キーは keymap に書かず、DYA Studio でビヘイビア「Studio Unlock」を任意のキーに割り当てる（keymap は他機種へ同期されるため）
+  - Bluetooth は、Unlock を押すと接続中でもアドバタイズが再開され、ブラウザの一覧に出るようになる
 - トラックボールの感度・スクロール量・スナップ・オートマウスは Trackball タブで変更できる。初期値は旧構成と同じ向き・量に合わせてある（`boards/shields/mona2/mona2_r.overlay`）
 - Studio で変えた内容はキーボード本体に保存され、このリポジトリの `config/mona2.keymap` には戻らない。恒久的に残したい変更は keymap にも反映する
 - 旧構成から書き換えた直後は、左右とも `settings_reset` を書き込んでから新しいファームを書き込む
